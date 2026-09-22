@@ -1,0 +1,11 @@
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.AssemblyInfoInputs.cache
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.AssemblyInfo.cs
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.csproj.CoreCompileInputs.cache
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\bin\Debug\net10.0\RoyalVilla.Dto.deps.json
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\bin\Debug\net10.0\RoyalVilla.Dto.dll
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\bin\Debug\net10.0\RoyalVilla.Dto.pdb
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.dll
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\refint\RoyalVilla.Dto.dll
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\RoyalVilla.Dto.pdb
+C:\Users\m7md2\source\repos\RoyalVilla\RoyalVilla.Dto\obj\Debug\net10.0\ref\RoyalVilla.Dto.dll

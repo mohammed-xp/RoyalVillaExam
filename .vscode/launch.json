@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-api",
+            "program": "${workspaceFolder}/RoyalVilla_API/bin/Debug/net10.0/RoyalVilla_API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/RoyalVilla_API",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "Web",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-web",
+            "program": "${workspaceFolder}/RoyalVillaWeb/bin/Debug/net10.0/RoyalVillaWeb.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/RoyalVillaWeb",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "API + Web",
+            "configurations": ["API", "Web"]
+        }
+    ]
+}

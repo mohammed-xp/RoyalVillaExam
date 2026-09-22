@@ -1,0 +1,142 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="denied-wrapper">
+    <div class="denied-card">
+
+        <div class="denied-icon">
+            <i class="bi bi-shield-lock-fill"></i>
+        </div>
+
+        <span class="denied-code">403</span>
+        <h3 class="denied-title">Access Denied</h3>
+
+        <p class="denied-text">
+            You don't have permission to view this page.
+            If you believe this is a mistake, contact your administrator.
+        </p>
+
+        @if (ViewData["ReturnUrl"] != null)
+        {
+            <div class="denied-url">
+                <i class="bi bi-link-45deg me-1"></i>
+                <code>@ViewData["ReturnUrl"]</code>
+            </div>
+        }
+
+        <div class="denied-actions">
+            <a asp-controller="home" asp-action="index" class="btn denied-btn-gold">
+                <i class="bi bi-house-door me-1"></i> Back to Home
+            </a>
+            <a asp-controller="auth" asp-action="login" class="btn btn-outline-secondary">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Sign in as another user
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .denied-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 220px);
+        padding: 2rem 0;
+    }
+
+    .denied-card {
+        width: 100%;
+        max-width: 480px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 1rem;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        box-shadow: 0 .5rem 2rem rgba(28, 39, 51, .08);
+    }
+
+    .denied-icon {
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 1.25rem;
+        border-radius: 50%;
+        background: #fdf2f2;
+        border: 1px solid #f7dcdc;
+        color: #dc3545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.1rem;
+    }
+
+    .denied-code {
+        display: inline-block;
+        font-size: .74rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        color: #dc3545;
+        background: #fdf2f2;
+        padding: .2rem .55rem;
+        border-radius: .35rem;
+        margin-bottom: .6rem;
+    }
+
+    .denied-title {
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: .6rem;
+    }
+
+    .denied-text {
+        color: #8a8a8a;
+        font-size: .9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .denied-url {
+        background: #faf8f4;
+        border: 1px solid #efe9dc;
+        border-radius: .5rem;
+        padding: .5rem .75rem;
+        font-size: .78rem;
+        color: #8a8a8a;
+        margin-bottom: 1.5rem;
+        overflow-wrap: anywhere;
+    }
+
+    .denied-url code {
+        color: var(--gold-dark);
+    }
+
+    .denied-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .5rem;
+    }
+
+    .denied-btn-gold {
+        background-color: var(--gold);
+        border-color: var(--gold);
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .denied-btn-gold:hover {
+        background-color: var(--gold-dark);
+        border-color: var(--gold-dark);
+        color: #fff;
+    }
+
+    @@media (max-width: 575px) {
+        .denied-card {
+            padding: 2rem 1.25rem;
+            box-shadow: none;
+        }
+
+        .denied-actions .btn {
+            flex: 1 1 100%;
+        }
+    }
+</style>

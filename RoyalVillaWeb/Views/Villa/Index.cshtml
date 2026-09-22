@@ -1,0 +1,432 @@
+@using RoyalVilla.Dto
+@model IEnumerable<VillaDto>
+
+@{
+    ViewData["Title"] = "Villa Management";
+}
+
+<!-- ===================== Alerts ===================== -->
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- ===================== Page He  ader ===================== -->
+<div class="vm-header">
+    <div>
+        <h2 class="vm-title"><i class="bi bi-house-gear text-gold"></i> Villa Management</h2>
+        <p class="text-muted mb-0">Add, edit, and manage your villa listings</p>
+    </div>
+    <a asp-controller="villa" asp-action="create" class="btn btn-gold">
+        <i class="bi bi-plus-lg"></i> Create New Villa
+    </a>
+</div>
+
+<!-- ===================== Stats ===================== -->
+@if(Model.Count() > 0)
+{
+    <div class="row g-3 mb-2">
+        <div class="col-6 col-lg-3">
+            <div class="vm-stat-card">
+                <div class="vm-stat-icon"><i class="bi bi-houses-fill"></i></div>
+                <div>
+                    <div class="vm-stat-value">@Model.Count()</div>
+                    <div class="vm-stat-label">Total Villas</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="vm-stat-card">
+                <div class="vm-stat-icon"><i class="bi bi-currency-dollar"></i></div>
+                <div>
+                    <div class="vm-stat-value">$@Model.Min(v => v.Rate).ToString("N0")</div>
+                    <div class="vm-stat-label">Avg. Rate / night</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="vm-stat-card">
+                <div class="vm-stat-icon"><i class="bi bi-people-fill"></i></div>
+                <div>
+                    <div class="vm-stat-value">@Model.Max(v => v.Occupancy)</div>
+                    <div class="vm-stat-label">Total Capacity</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="vm-stat-card">
+                <div class="vm-stat-icon"><i class="bi bi-arrows-fullscreen"></i></div>
+                <div>
+                    <div class="vm-stat-value">@Model.Sum(v => v.Sqft).ToString("N0")</div>
+                    <div class="vm-stat-label">Total Area (sqft)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- ===================== Toolbar ===================== -->
+<div class="vm-toolbar">
+    <div class="d-flex flex-wrap gap-2">
+        <div class="input-group vm-search">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+            <input type="search" class="form-control border-start-0" placeholder="Search villas...">
+        </div>
+        <select class="form-select vm-sort" aria-label="Sort villas">
+            <option selected>Sort by: Name</option>
+            <option>Rate: Low to High</option>
+            <option>Rate: High to Low</option>
+            <option>Occupancy</option>
+        </select>
+    </div>
+    <span class="text-muted small">Showing 3 villas</span>
+</div>
+
+<!-- ===================== Villas Table ===================== -->
+<!-- TODO (binding step, not part of this UI pass): replace the static rows below with
+     @@foreach (var villa in Model) { ... } using the same markup, one row per VillaDto -->
+<div class="vm-table-card">
+    <div class="table-responsive">
+        <table class="table vm-table mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Villa</th>
+                    <th>Rate</th>
+                    <th>Size</th>
+                    <th>Occupancy</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var villa in Model)
+                {
+                    <!-- ===== Villa Row (repeat per VillaDto) ===== -->
+                    <tr>
+                        <!-- VillaDto.Id -->
+                        <td class="text-muted">@villa.Id</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <!-- VillaDto.ImageUrl -->
+                                @if (string.IsNullOrEmpty(villa.ImageUrl))
+                                {
+                                    <div class="vm-thumb vm-thumb-placeholder d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-house-door text-muted"></i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img src="@SD.GetImageUrl(villa.ImageUrl)" class="vm-thumb" alt="Villa">
+                                }
+                                <div>
+                                    <!-- VillaDto.Name -->
+                                    <p class="vm-villa-name">@villa.Name</p>
+                                    <!-- VillaDto.Details -->
+                                    @if (!string.IsNullOrEmpty(villa.Details))
+                                    {
+                                        <p class="vm-villa-details mb-0">@villa.Details</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="vm-villa-details vm-villa-details-empty mb-0">
+                                            <i class="bi bi-dash-circle me-1"></i>No description
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                        <!-- VillaDto.Rate -->
+                        <td><span class="vm-rate-badge">$@villa.Rate.ToString("N0")</span></td>
+                        <!-- VillaDto.Sqft -->
+                        <td><i class="bi bi-arrows-fullscreen text-muted me-1"></i>@villa.Sqft.ToString("N0") sqft</td>
+                        <!-- VillaDto.Occupancy -->
+                        <td><i class="bi bi-people-fill text-muted me-1"></i>@villa.Occupancy.ToString("N0") guests</td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+                                <a asp-action="edit" asp-route-id="@villa.Id" class="vm-icon-btn" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                                <a asp-action="delete" asp-route-id="@villa.Id"
+                                class="vm-icon-btn vm-delete" title="Delete">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                                @* <button asp-controller="villa" asp-action="delete" asp-route-id="@villa.Id" type="button" class="vm-icon-btn vm-delete border-0" title="Delete"
+                                        data-bs-toggle="modal" data-bs-target="#deleteVillaModal">
+                                    <i class="bi bi-trash3"></i>
+                                </button> *@
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- ===== End Villa Row ===== -->
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ===================== Empty State (binding step: show when !Model.Any()) ===================== -->
+@* <div class="vm-empty-state text-center py-5 mt-3 d-none">
+    <i class="bi bi-house-x display-3 text-muted"></i>
+    <h4 class="mt-3">No villas yet</h4>
+    <p class="text-muted">Get started by creating your first villa.</p>
+    <a href="#" class="btn btn-gold mt-2"><i class="bi bi-plus-lg"></i> Create New Villa</a>
+</div> *@
+
+<!-- ===================== Delete Confirmation Modal ===================== -->
+<div class="modal fade" id="deleteVillaModal" tabindex="-1" aria-labelledby="deleteVillaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteVillaModalLabel"><i
+                    class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Delete Villa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <strong><!-- VillaDto.Name -->this villa</strong>? This action cannot be
+                    undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .vm-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .vm-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .25rem;
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--gold-dark);
+            border-color: var(--gold-dark);
+            color: #fff;
+        }
+
+        .btn-outline-gold {
+            color: var(--gold-dark);
+            border: 1px solid var(--gold);
+            font-weight: 600;
+        }
+
+        .btn-outline-gold:hover {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        /* ===== Stats ===== */
+        .vm-stat-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: .75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            height: 100%;
+            box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .04);
+        }
+
+        .vm-stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: .6rem;
+            background: rgba(201, 162, 39, .12);
+            color: var(--gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .vm-stat-value {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--navy);
+            line-height: 1.1;
+        }
+
+        .vm-stat-label {
+            font-size: .8rem;
+            color: #8a8a8a;
+        }
+
+        /* ===== Toolbar ===== */
+        .vm-toolbar {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: .75rem;
+            padding: .85rem 1rem;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .vm-search {
+            max-width: 280px;
+        }
+
+        .vm-sort {
+            max-width: 200px;
+        }
+
+        /* ===== Table ===== */
+        .vm-table-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: .75rem;
+            overflow: hidden;
+            box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .04);
+        }
+
+        .vm-table thead th {
+            background: #faf8f4;
+            color: var(--navy);
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+            padding: .85rem 1rem;
+        }
+
+        .vm-table tbody td {
+            vertical-align: middle;
+            padding: .75rem 1rem;
+        }
+
+        .vm-table tbody tr {
+            transition: background-color .15s ease;
+        }
+
+        .vm-table tbody tr:hover {
+            background-color: #fbf8f2;
+        }
+
+        .vm-thumb {
+            width: 64px;
+            height: 48px;
+            border-radius: .5rem;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .vm-thumb-placeholder {
+            width: 64px;
+            height: 48px;
+            border-radius: .5rem;
+            background: linear-gradient(135deg, #f8f5f0, #eee6d8);
+            color: #b8a888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .vm-villa-name {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0;
+        }
+
+        .vm-villa-details {
+            font-size: .82rem;
+            color: #8a8a8a;
+            max-width: 320px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vm-rate-badge {
+            background-color: var(--gold);
+            color: #fff;
+            font-weight: 700;
+            padding: .35rem .6rem;
+            border-radius: .5rem;
+            font-size: .85rem;
+            white-space: nowrap;
+        }
+
+        .vm-icon-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: .5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e2e2;
+            background: #fff;
+            color: var(--navy);
+        }
+
+        .vm-icon-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .vm-icon-btn.vm-delete:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+        .vm-empty-state {
+            background: #fff;
+            border: 1px dashed #ddd;
+            border-radius: .75rem;
+        }
+
+        @@media (max-width: 767px) {
+            .vm-villa-details {
+                display: none;
+            }
+
+            .vm-header {
+                flex-direction: column;
+            }
+        }
+
+        .vm-thumb-placeholder {
+            background-color: #f1f3f5;
+            border: 1px dashed #dee2e6;
+        }
+
+        .vm-thumb-placeholder i {
+            font-size: 1.25rem;
+        }
+    </style>

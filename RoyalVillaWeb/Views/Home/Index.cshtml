@@ -1,0 +1,212 @@
+@using RoyalVilla.Dto
+@model IEnumerable<VillaDto>
+
+<!-- ===================== Hero Carousel ===================== -->
+<div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=1600&auto=format&fit=crop')"></div>
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption hero-caption">
+                <h1 class="display-4 fw-bold">Royal Villa Escapes</h1>
+                <p class="lead d-none d-md-block">Handpicked luxury villas for an unforgettable stay</p>
+                <a href="#villa-listings" class="btn btn-lg btn-gold mt-2">Explore Villas <i class="bi bi-arrow-down-short"></i></a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop')"></div>
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption hero-caption">
+                <h1 class="display-4 fw-bold">Private Pools &amp; Ocean Views</h1>
+                <p class="lead d-none d-md-block">Wake up to the view you have always dreamed of</p>
+                <a href="#villa-listings" class="btn btn-lg btn-gold mt-2">Explore Villas <i class="bi bi-arrow-down-short"></i></a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1600&auto=format&fit=crop')"></div>
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption hero-caption">
+                <h1 class="display-4 fw-bold">Comfort Meets Elegance</h1>
+                <p class="lead d-none d-md-block">Spacious villas designed for family &amp; friends</p>
+                <a href="#villa-listings" class="btn btn-lg btn-gold mt-2">Explore Villas <i class="bi bi-arrow-down-short"></i></a>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- ===================== Feature Strip ===================== -->
+<div class="container">
+    <div class="row g-3 feature-strip">
+        <div class="col-6 col-md-3">
+            <div class="feature-tile">
+                <i class="bi bi-award-fill"></i>
+                <span>Luxury Stays</span>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-tile">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>Prime Locations</span>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-tile">
+                <i class="bi bi-headset"></i>
+                <span>24/7 Support</span>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-tile">
+                <i class="bi bi-tag-fill"></i>
+                <span>Best Price</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== Error Alerts ===================== -->
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container mt-5" id="villa-listings">
+    <!-- ===================== Listings Header ===================== -->
+    <div class="row mb-4 align-items-center listings-header">
+        <div class="col-12 col-lg-6 text-center text-lg-start">
+            <h2 class="section-title">
+                <i class="bi bi-house-door-fill text-gold"></i> Luxury Villa Collection
+            </h2>
+            <p class="text-muted mb-0">Find the perfect villa for your next getaway</p>
+        </div>
+        <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center justify-content-lg-end">
+                <div class="input-group listings-search">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="search" class="form-control border-start-0" placeholder="Search villas...">
+                </div>
+                <select class="form-select listings-sort" aria-label="Sort villas">
+                    <option selected>Sort by: Recommended</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Occupancy</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== Villa Cards Grid ===================== -->
+    <!-- TODO (binding step, not part of this UI pass): replace the static cards below with
+         @@foreach (var villa in Model) { ... } using the same markup, one card per VillaDto -->
+    @if(Model == null || !Model.Any())
+    {
+        <!-- ===================== Empty State (Displays when Model is null or empty) ===================== -->
+        <div class="empty-state text-center py-5">
+            <i class="bi bi-house-x display-3 text-muted"></i>
+            <h4 class="mt-3">No villas available right now</h4>
+            <p class="text-muted">Please check back later.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            <!-- ===== Villa Card (repeat per VillaDto) ===== -->
+            @foreach (var villa in Model)
+            {
+                <div class="col">
+                    <div class="card villa-card h-100">
+                        <div class="villa-card-img-wrap">
+                            <!-- VillaDto.ImageUrl -->
+                            @if (!string.IsNullOrEmpty(villa.ImageUrl))
+                            {
+                                <img src="@SD.GetImageUrl(villa.ImageUrl)" class="villa-card-img" alt="@villa.Name">
+                            }
+                            else
+                            {
+                                <div class="villa-img-placeholder d-flex flex-column align-items-center justify-content-center">
+                                    <i class="bi bi-house-heart"></i>
+                                    <span>No Image Available</span>
+                                </div>
+                            }
+                            <!-- VillaDto.Rate -->
+                            <span class="badge rate-badge">@villa.Rate.ToString("N0") <small>/ night</small></span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <!-- VillaDto.Name -->
+                            <h5 class="card-title mb-1">@villa.Name</h5>
+                            <!-- VillaDto.Details -->
+                            <p class="card-text text-muted villa-details">
+                                @villa.Details
+                            </p>
+                            <div class="villa-meta d-flex gap-3 mt-auto mb-3">
+                                <span><i class="bi bi-arrows-fullscreen"></i> <!-- VillaDto.Sqft -->@villa.Sqft sqft</span>
+                                <span><i class="bi bi-people-fill"></i> <!-- VillaDto.Occupancy -->@villa.Occupancy guests</span>
+                            </div>
+                            <a href="#" class="btn btn-outline-gold w-100">View Details <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- ===== End Villa Card ===== -->
+        </div>
+
+        <!-- ===================== Stats Footer (computed from Model) ===================== -->
+
+        <div class="listings-stats-footer mt-5">
+            <div class="row g-3 text-center">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-houses-fill"></i>
+                        <div class="stat-value">@Model.Count()</div>
+                        <div class="stat-label">Total Villas</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-tag-fill"></i>
+                        <div class="stat-value">$@Model.Min(v => v.Rate).ToString("N0")</div>
+                        <div class="stat-label">Starting From</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-people-fill"></i>
+                        <div class="stat-value">@Model.Max(v => v.Occupancy)</div>
+                        <div class="stat-label">Max Occupancy</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                        <div class="stat-value">@Model.Sum(v => v.Sqft).ToString("N0")</div>
+                        <div class="stat-label">Total Sqft</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ===================== Empty State (binding step: show when !Model.Any()) ===================== -->
+    <div class="empty-state text-center py-5 d-none">
+        <i class="bi bi-house-x display-3 text-muted"></i>
+        <h4 class="mt-3">No villas available right now</h4>
+        <p class="text-muted">Please check back later.</p>
+    </div>
+</div>

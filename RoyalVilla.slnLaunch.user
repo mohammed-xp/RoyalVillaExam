@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Run All",
+    "Projects": [
+      {
+        "Path": "RoyalVilla_API\\RoyalVilla_API.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "RoyalVillaWeb\\RoyalVillaWeb.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  },
+  {
+    "Name": "Run All without debugging",
+    "Projects": [
+      {
+        "Path": "RoyalVilla_API\\RoyalVilla_API.csproj",
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "RoyalVillaWeb\\RoyalVillaWeb.csproj",
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

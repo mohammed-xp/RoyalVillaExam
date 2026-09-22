@@ -1,0 +1,241 @@
+@model RoyalVilla.Dto.VillaDto
+
+@{
+    ViewData["Title"] = "Delete Villa";
+}
+
+<!-- ===================== Page Header ===================== -->
+<div class="vm-header">
+    <div>
+        <h2 class="vm-title"><i class="bi bi-trash3 text-danger"></i> Delete Villa</h2>
+        <p class="text-muted mb-0">Review the details below before removing this villa</p>
+    </div>
+    <a asp-controller="villa" asp-action="index" class="btn btn-outline-gold">
+        <i class="bi bi-arrow-left"></i> Back to List
+    </a>
+</div>
+
+<!-- ===================== Confirmation Card ===================== -->
+<div class="vd-card">
+
+    <!-- Warning banner -->
+    <div class="vd-warning">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <div>
+            <strong>This action cannot be undone.</strong>
+            <span class="d-block">The villa and all of its data will be permanently removed.</span>
+        </div>
+    </div>
+
+    <!-- Villa summary -->
+    <div class="vd-body">
+        <div class="row g-4 align-items-start">
+
+            <!-- Image -->
+            <div class="col-md-5">
+                @if (string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <div class="vd-image vd-image-placeholder">
+                        <i class="bi bi-house-door"></i>
+                        <span>No image</span>
+                    </div>
+                }
+                else
+                {
+                    <img src="@SD.GetImageUrl(Model.ImageUrl)" alt="@Model.Name" class="vd-image"
+                         onerror="this.onerror=null; this.classList.add('vd-image-broken');">
+                }
+            </div>
+
+            <!-- Details -->
+            <div class="col-md-7">
+                <span class="vd-id">#@Model.Id</span>
+                <h4 class="vd-name">@Model.Name</h4>
+
+                @if (string.IsNullOrWhiteSpace(Model.Details))
+                {
+                    <p class="vd-details vd-details-empty">
+                        <i class="bi bi-dash-circle me-1"></i>No description
+                    </p>
+                }
+                else
+                {
+                    <p class="vd-details">@Model.Details</p>
+                }
+
+                <div class="vd-specs">
+                    <div class="vd-spec">
+                        <div class="vd-spec-icon"><i class="bi bi-currency-dollar"></i></div>
+                        <div>
+                            <div class="vd-spec-value">$@Model.Rate.ToString("N0")</div>
+                            <div class="vd-spec-label">per night</div>
+                        </div>
+                    </div>
+                    <div class="vd-spec">
+                        <div class="vd-spec-icon"><i class="bi bi-arrows-fullscreen"></i></div>
+                        <div>
+                            <div class="vd-spec-value">@Model.Sqft.ToString("N0")</div>
+                            <div class="vd-spec-label">sqft</div>
+                        </div>
+                    </div>
+                    <div class="vd-spec">
+                        <div class="vd-spec-icon"><i class="bi bi-people-fill"></i></div>
+                        <div>
+                            <div class="vd-spec-value">@Model.Occupancy</div>
+                            <div class="vd-spec-label">guests</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <form method="post" class="vd-actions">
+        <input type="hidden" asp-for="Id" />
+
+        <a asp-controller="villa" asp-action="index" class="btn btn-outline-secondary">
+            <i class="bi bi-x-lg"></i> Cancel
+        </a>
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash3"></i> Yes, Delete Villa
+        </button>
+    </form>
+</div>
+
+<style>
+    .vd-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: .75rem;
+        overflow: hidden;
+        box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .04);
+        max-width: 860px;
+    }
+
+    .vd-warning {
+        display: flex;
+        gap: .75rem;
+        align-items: flex-start;
+        padding: 1rem 1.25rem;
+        background: #fdf2f2;
+        border-bottom: 1px solid #f7dcdc;
+        color: #8a1f1f;
+        font-size: .88rem;
+    }
+
+    .vd-warning i {
+        font-size: 1.15rem;
+        color: #dc3545;
+        flex-shrink: 0;
+    }
+
+    .vd-body { padding: 1.5rem; }
+
+    /* ===== Image ===== */
+    .vd-image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border-radius: .6rem;
+        object-fit: cover;
+        background: #faf8f4;
+    }
+
+    .vd-image-placeholder,
+    .vd-image-broken {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .4rem;
+        border: 1px dashed #e2dbca;
+        color: #b8a888;
+        font-size: .82rem;
+    }
+
+    .vd-image-placeholder i { font-size: 2.2rem; }
+
+    /* ===== Details ===== */
+    .vd-id {
+        display: inline-block;
+        font-size: .75rem;
+        font-weight: 700;
+        color: var(--gold-dark);
+        background: rgba(201, 162, 39, .12);
+        padding: .2rem .5rem;
+        border-radius: .35rem;
+        margin-bottom: .5rem;
+    }
+
+    .vd-name {
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: .5rem;
+    }
+
+    .vd-details {
+        color: #6c757d;
+        font-size: .9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .vd-details-empty {
+        color: #adb5bd;
+        font-style: italic;
+    }
+
+    /* ===== Specs ===== */
+    .vd-specs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .vd-spec {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+    }
+
+    .vd-spec-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: .5rem;
+        background: rgba(201, 162, 39, .12);
+        color: var(--gold-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .vd-spec-value {
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.1;
+    }
+
+    .vd-spec-label {
+        font-size: .75rem;
+        color: #8a8a8a;
+    }
+
+    /* ===== Actions ===== */
+    .vd-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: .5rem;
+        padding: 1.15rem 1.5rem;
+        background: #fafafa;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    @@media (max-width: 575px) {
+        .vd-body { padding: 1.15rem; }
+        .vd-actions .btn { flex: 1 1 auto; }
+        .vm-header { flex-direction: column; }
+    }
+</style>

@@ -1,0 +1,479 @@
+@model RoyalVilla.Dto.RegistrationRequestDto
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <!-- ===== Brand ===== -->
+        <div class="auth-brand">
+            <div class="auth-logo"><i class="bi bi-person-plus-fill"></i></div>
+            <h3 class="auth-title">Create Account</h3>
+            <p class="auth-subtitle">Join Royal Villa and start booking</p>
+        </div>
+
+        <!-- ===== Alerts ===== -->
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success d-flex align-items-center gap-2" role="alert">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>@TempData["success"]</span>
+            </div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span>@TempData["error"]</span>
+            </div>
+        }
+
+        
+
+        <!-- ===== Form ===== -->
+        <form asp-action="Register" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <!-- Role: fixed, never user-editable -->
+            @* <input type="hidden" asp-for="Role" value="Customer" /> *@
+
+            <!-- Name -->
+            <div class="auth-field">
+                <label asp-for="Name" class="auth-label">Full Name</label>
+                <div class="input-group auth-input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter your full name"
+                           maxlength="100" autocomplete="name" autofocus>
+                </div>
+                <span asp-validation-for="Name" class="auth-error"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="auth-field">
+                <label asp-for="Email" class="auth-label">Email Address</label>
+                <div class="input-group auth-input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="you@example.com"
+                           autocomplete="username">
+                </div>
+                <span asp-validation-for="Email" class="auth-error"></span>
+            </div>
+
+            <!-- Role -->
+            <div class="auth-field">
+                <label class="auth-label">I want to join as</label>
+
+                <div class="role-options">
+                    <label class="role-option">
+                        <input type="radio" asp-for="Role" value="customer" checked>
+                        <span class="role-box">
+                            <i class="bi bi-person-heart"></i>
+                            <span class="role-name">Customer</span>
+                            <span class="role-desc">Browse and book villas</span>
+                        </span>
+                    </label>
+
+                    <label class="role-option">
+                        <input type="radio" asp-for="Role" value="admin">
+                        <span class="role-box">
+                            <i class="bi bi-house-check"></i>
+                            <span class="role-name">Admin</span>
+                            <span class="role-desc">List and manage villas</span>
+                        </span>
+                    </label>
+                </div>
+
+                <span asp-validation-for="Role" class="auth-error"></span>
+            </div>
+
+
+            <!-- Password -->
+            <div class="auth-field">
+                <label asp-for="Password" class="auth-label">Password</label>
+                <div class="input-group auth-input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input asp-for="Password" type="password" id="Password" class="form-control"
+                           placeholder="Create a password" autocomplete="new-password">
+                    <button class="btn auth-toggle" type="button" id="togglePassword" aria-label="Show password">
+                        <i class="bi bi-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+
+                <!-- Strength meter -->
+                <div class="auth-strength" id="strengthWrap" hidden>
+                    <div class="auth-strength-bar">
+                        <span id="strengthFill"></span>
+                    </div>
+                    <span class="auth-strength-text" id="strengthText"></span>
+                </div>
+
+                <span asp-validation-for="Password" class="auth-error"></span>
+            </div>
+
+            <!-- Confirm password (client-side only) -->
+            <div class="auth-field">
+                <label for="ConfirmPassword" class="auth-label">Confirm Password</label>
+                <div class="input-group auth-input-group">
+                    <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control"
+                           placeholder="Re-enter your password" autocomplete="new-password">
+                </div>
+                <span class="auth-error" id="confirmError"></span>
+            </div>
+
+            <!-- Terms -->
+            <div class="form-check auth-check">
+                <input class="form-check-input" type="checkbox" id="AgreeTerms" required>
+                <label class="form-check-label" for="AgreeTerms">
+                    I agree to the <a href="#" class="auth-link">Terms</a> and
+                    <a asp-controller="home" asp-action="privacy" class="auth-link">Privacy Policy</a>
+                </label>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn auth-submit w-100">
+                <i class="bi bi-person-check me-1"></i> Create Account
+            </button>
+        </form>
+
+        <!-- ===== Footer ===== -->
+        <div class="auth-footer">
+            Already have an account?
+            <a asp-controller="auth" asp-action="login" class="auth-link">Sign in</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ===== Layout ===== */
+    .auth-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 220px);
+        padding: 2rem 0;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 430px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 1rem;
+        padding: 2.25rem 2rem;
+        box-shadow: 0 .5rem 2rem rgba(28, 39, 51, .08);
+    }
+
+    /* ===== Brand ===== */
+    .auth-brand {
+        text-align: center;
+        margin-bottom: 1.75rem;
+    }
+
+    .auth-logo {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto .85rem;
+        border-radius: 1rem;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        box-shadow: 0 .4rem 1rem rgba(201, 162, 39, .28);
+    }
+
+    .auth-title {
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: .25rem;
+    }
+
+    .auth-subtitle {
+        color: #8a8a8a;
+        font-size: .88rem;
+        margin-bottom: 0;
+    }
+
+    /* ===== Fields ===== */
+    .auth-field {
+        margin-bottom: 1.15rem;
+    }
+
+    .auth-label {
+        font-weight: 600;
+        color: var(--navy);
+        font-size: .86rem;
+        margin-bottom: .4rem;
+        display: block;
+    }
+
+    .auth-input-group .input-group-text {
+        background: #faf8f4;
+        border-color: #e2e2e2;
+        color: var(--gold-dark);
+    }
+
+    .auth-card .form-control {
+        border-color: #e2e2e2;
+        padding: .6rem .75rem;
+    }
+
+    .auth-card .form-control:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 .2rem rgba(201, 162, 39, .15);
+    }
+
+    .auth-toggle {
+        border: 1px solid #e2e2e2;
+        border-left: 0;
+        background: #fff;
+        color: #8a8a8a;
+    }
+
+    .auth-toggle:hover {
+        color: var(--gold-dark);
+        background: #faf8f4;
+    }
+
+    .auth-error {
+        display: block;
+        font-size: .8rem;
+        color: #dc3545;
+        margin-top: .25rem;
+    }
+
+    /* ===== Strength meter ===== */
+    .auth-strength {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        margin-top: .5rem;
+    }
+
+    .auth-strength-bar {
+        flex: 1;
+        height: 5px;
+        border-radius: 99px;
+        background: #eee;
+        overflow: hidden;
+    }
+
+    .auth-strength-bar span {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: 99px;
+        transition: width .25s ease, background-color .25s ease;
+    }
+
+    .auth-strength-text {
+        font-size: .74rem;
+        font-weight: 600;
+        min-width: 52px;
+        text-align: right;
+    }
+
+    /* ===== Check ===== */
+    .auth-check {
+        margin-bottom: 1.35rem;
+        font-size: .86rem;
+        color: #55606c;
+    }
+
+    .auth-check .form-check-input:checked {
+        background-color: var(--gold);
+        border-color: var(--gold);
+    }
+
+    .auth-check .form-check-input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 .2rem rgba(201, 162, 39, .15);
+    }
+
+    /* ===== Submit ===== */
+    .auth-submit {
+        background-color: var(--gold);
+        border-color: var(--gold);
+        color: #fff;
+        font-weight: 600;
+        padding: .6rem;
+    }
+
+    .auth-submit:hover {
+        background-color: var(--gold-dark);
+        border-color: var(--gold-dark);
+        color: #fff;
+    }
+
+    /* ===== Links / Footer ===== */
+    .auth-link {
+        color: var(--gold-dark);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .auth-link:hover {
+        text-decoration: underline;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid #f0f0f0;
+        font-size: .88rem;
+        color: #8a8a8a;
+    }
+
+    @@media (max-width: 575px) {
+        .auth-card {
+            padding: 1.75rem 1.25rem;
+            box-shadow: none;
+        }
+    }
+
+    .role-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+}
+
+.role-option {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* الراديو مخفي بصرياً بس لسه موجود للكيبورد وقارئ الشاشة */
+.role-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: .15rem;
+    height: 100%;
+    padding: .9rem .6rem;
+    border: 1px solid #e2e2e2;
+    border-radius: .65rem;
+    background: #fff;
+    transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+.role-box i {
+    font-size: 1.4rem;
+    color: #b8a888;
+    margin-bottom: .2rem;
+    transition: color .15s ease;
+}
+
+.role-name {
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--navy);
+}
+
+.role-desc {
+    font-size: .72rem;
+    color: #8a8a8a;
+    line-height: 1.3;
+}
+
+.role-option:hover .role-box {
+    border-color: #d9cba8;
+    background: #fdfcfa;
+}
+
+.role-option input:checked + .role-box {
+    border-color: var(--gold);
+    background: #faf8f4;
+    box-shadow: 0 0 0 .15rem rgba(201, 162, 39, .18);
+}
+
+.role-option input:checked + .role-box i {
+    color: var(--gold-dark);
+}
+
+/* إطار واضح وقت التنقل بالكيبورد */
+.role-option input:focus-visible + .role-box {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        (function () {
+            const $ = id => document.getElementById(id);
+
+            // ===== Show / hide password =====
+            const btn = $('togglePassword'), pwd = $('Password'), icon = $('toggleIcon');
+
+            btn.addEventListener('click', function () {
+                const hidden = pwd.type === 'password';
+                pwd.type = hidden ? 'text' : 'password';
+                icon.classList.toggle('bi-eye', !hidden);
+                icon.classList.toggle('bi-eye-slash', hidden);
+                btn.setAttribute('aria-label', hidden ? 'Hide password' : 'Show password');
+            });
+
+            // ===== Strength meter =====
+            const wrap = $('strengthWrap'), fill = $('strengthFill'), text = $('strengthText');
+            const levels = [
+                { w: '25%', c: '#dc3545', t: 'Weak' },
+                { w: '50%', c: '#fd7e14', t: 'Fair' },
+                { w: '75%', c: '#ffc107', t: 'Good' },
+                { w: '100%', c: '#198754', t: 'Strong' }
+            ];
+
+            pwd.addEventListener('input', function () {
+                const v = pwd.value;
+                wrap.hidden = v.length === 0;
+                if (!v) return;
+
+                let score = 0;
+                if (v.length >= 8) score++;
+                if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+                if (/\d/.test(v)) score++;
+                if (/[^A-Za-z0-9]/.test(v)) score++;
+
+                const lvl = levels[Math.max(0, score - 1)];
+                fill.style.width = lvl.w;
+                fill.style.backgroundColor = lvl.c;
+                text.textContent = lvl.t;
+                text.style.color = lvl.c;
+
+                checkMatch();
+            });
+
+            // ===== Confirm password =====
+            const confirm = $('ConfirmPassword'), confirmError = $('confirmError');
+
+            function checkMatch() {
+                if (!confirm.value) {
+                    confirmError.textContent = '';
+                    confirm.setCustomValidity('');
+                    return;
+                }
+                const ok = confirm.value === pwd.value;
+                confirmError.textContent = ok ? '' : 'Passwords do not match.';
+                confirm.setCustomValidity(ok ? '' : 'Passwords do not match.');
+            }
+
+            confirm.addEventListener('input', checkMatch);
+        })();
+    </script>
+}

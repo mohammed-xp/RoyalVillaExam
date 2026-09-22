@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="RoyalVilla-Web" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\obj\\Release\\net10\.0\\win-x86\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>

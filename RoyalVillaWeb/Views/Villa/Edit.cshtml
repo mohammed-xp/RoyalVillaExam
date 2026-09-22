@@ -1,0 +1,242 @@
+@model RoyalVilla.Dto.VillaUpdateDto
+
+@{
+    ViewData["Title"] = "Edit Villa";
+}
+
+<!-- ===================== Page Header ===================== -->
+<div class="vm-header">
+    <div>
+        <h2 class="vm-title"><i class="bi bi-pencil-square text-gold"></i> Edit Villa</h2>
+        <p class="text-muted mb-0">Edit the details of this villa listing</p>
+    </div>
+    <a asp-controller="villa" asp-action="index" class="btn btn-outline-gold">
+        <i class="bi bi-arrow-left"></i> Back to List
+    </a>
+</div>
+
+<!-- ===================== Form ===================== -->
+<form method="post" enctype="multipart/form-data" class="vm-form-card">
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ImageUrl" />
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    </div>
+
+    <!-- Editing banner -->
+    <div class="vu-editing-bar">
+        <i class="bi bi-info-circle"></i>
+        <span>You are editing villa <span class="vu-id-badge">#@Model.Id</span></span>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ========== Left: fields ========== -->
+        <div class="col-lg-7">
+
+            <!-- Name -->
+            <div class="vm-field">
+                <label asp-for="Name" class="vm-label">
+                    Villa Name <span class="vm-required">*</span>
+                </label>
+                <div class="input-group vm-input-group">
+                    <span class="input-group-text"><i class="bi bi-house-door"></i></span>
+                    <input asp-for="Name" type="text" class="form-control"
+                           placeholder="e.g. Royal Sunset Villa" maxlength="30" required>
+                </div>
+                <div class="vm-hint d-flex justify-content-between">
+                    <span>Max 30 characters</span>
+                    <span id="nameCount">@(Model.Name?.Length ?? 0) / 30</span>
+                </div>
+                <span asp-validation-for="Name" class="vm-error"></span>
+            </div>
+
+            <!-- Details -->
+            <div class="vm-field">
+                <label asp-for="Details" class="vm-label">Description</label>
+                <textarea asp-for="Details" class="form-control" rows="4"
+                          placeholder="Describe the villa, its location, and what makes it special..."></textarea>
+                <div class="vm-hint">Optional — shown under the villa name in the listing</div>
+                <span asp-validation-for="Details" class="vm-error"></span>
+            </div>
+
+            <!-- Rate / Sqft / Occupancy -->
+            <div class="row g-3">
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Rate" class="vm-label">Rate / night <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="Rate" type="number" class="form-control"
+                                   min="0" step="0.01" required>
+                        </div>
+                        <span asp-validation-for="Rate" class="vm-error"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Sqft" class="vm-label">Size <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text"><i class="bi bi-arrows-fullscreen"></i></span>
+                            <input asp-for="Sqft" type="number" class="form-control"
+                                   min="0" step="1" required>
+                            <span class="input-group-text">sqft</span>
+                        </div>
+                        <span asp-validation-for="Sqft" class="vm-error"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Occupancy" class="vm-label">Occupancy <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text"><i class="bi bi-people-fill"></i></span>
+                            <input asp-for="Occupancy" type="number" class="form-control"
+                                   min="1" step="1" required>
+                        </div>
+                        <span asp-validation-for="Occupancy" class="vm-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Villa Image -->
+<div class="vm-field mt-4 mb-0">
+    <label asp-for="Image" class="vm-label">Villa Image</label>
+    <div class="input-group vm-input-group">
+        <span class="input-group-text"><i class="bi bi-image"></i></span>
+        <input asp-for="Image" type="file" class="form-control"
+               accept="image/png, image/jpeg, image/webp" onchange="previewVillaImage(event)">
+    </div>
+    <div class="vm-hint">سيبها فاضية عشان تسيب الصورة الحالية زي ما هي</div>
+    <span asp-validation-for="Image" class="vm-error"></span>
+</div>
+
+        @*     <!-- ImageUrl -->
+            <div class="vm-field mt-4 mb-0">
+                <label asp-for="ImageUrl" class="vm-label">Image URL</label>
+                <div class="input-group vm-input-group">
+                    <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                    <input asp-for="ImageUrl" type="url" class="form-control"
+                           placeholder="https://example.com/villa.jpg">
+                </div>
+                <div class="vm-hint">Leave empty to show the default placeholder</div>
+                <span asp-validation-for="ImageUrl" class="vm-error"></span>
+            </div>
+        </div> *@
+
+        <!-- ========== Right: live preview ========== -->
+        <div class="col-lg-5">
+            <div class="vm-preview-panel">
+                <div class="vm-preview-title">
+                    <i class="bi bi-eye me-1"></i> Preview
+                </div>
+
+                <div class="vm-preview-image">
+                    <img id="previewImg" src="@SD.GetImageUrl(Model.ImageUrl)" alt="Villa preview"
+                         class="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "d-none" : "")">
+                    <div id="previewEmpty"
+                         class="vm-preview-empty @(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "" : "d-none")">
+                        <i class="bi bi-image"></i>
+                        <span>No image yet</span>
+                    </div>
+                </div>
+
+                <div class="vm-preview-body">
+                    <p class="vm-preview-name" id="previewName">@Model.Name</p>
+                    <p class="vm-preview-details" id="previewDetails">
+                        @(string.IsNullOrWhiteSpace(Model.Details) ? "Description will appear here." : Model.Details)
+                    </p>
+                    <div class="vm-preview-meta">
+                        <span><i class="bi bi-currency-dollar"></i> <b id="previewRate">@Model.Rate.ToString("N0")</b> / night</span>
+                        <span><i class="bi bi-arrows-fullscreen"></i> <b id="previewSqft">@Model.Sqft.ToString("N0")</b> sqft</span>
+                        <span><i class="bi bi-people-fill"></i> <b id="previewOcc">@Model.Occupancy</b> guests</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Actions ========== -->
+    <div class="vm-form-actions">
+        <a asp-controller="villa" asp-action="index" class="btn btn-outline-secondary">
+            <i class="bi bi-x-lg"></i> Cancel
+        </a>
+        <button type="submit" class="btn btn-gold">
+            <i class="bi bi-check-lg"></i> Save Changes
+        </button>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        (function () {
+            const $ = id => document.getElementById(id);
+
+            const bind = (inputId, targetId, fallback, fmt) => {
+                const input = $(inputId), target = $(targetId);
+                if (!input || !target) return;
+                input.addEventListener('input', () => {
+                    const v = input.value.trim();
+                    target.textContent = v ? (fmt ? fmt(v) : v) : fallback;
+                });
+            };
+
+            bind('Name', 'previewName', 'Villa name');
+            bind('Details', 'previewDetails', 'Description will appear here.');
+            bind('Rate', 'previewRate', '0', v => Number(v).toLocaleString());
+            bind('Sqft', 'previewSqft', '0', v => Number(v).toLocaleString());
+            bind('Occupancy', 'previewOcc', '0');
+
+            const name = $('Name'), count = $('nameCount');
+            name.addEventListener('input', () => count.textContent = `${name.value.length} / 30`);
+        })();
+
+        function previewVillaImage(event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('previewImg');
+            const previewEmpty = document.getElementById('previewEmpty');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    previewImg.classList.remove('d-none');
+                    previewEmpty.classList.add('d-none');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
+
+
+<style>
+    .vu-editing-bar {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .7rem 1rem;
+        background: #faf8f4;
+        border: 1px solid #efe9dc;
+        border-radius: .6rem;
+        margin-bottom: 1.5rem;
+        font-size: .85rem;
+        color: var(--navy);
+    }
+
+    .vu-editing-bar i { color: var(--gold-dark); }
+
+    .vu-id-badge {
+        font-weight: 700;
+        color: var(--gold-dark);
+        background: rgba(201, 162, 39, .14);
+        padding: .1rem .45rem;
+        border-radius: .35rem;
+    }
+</style>

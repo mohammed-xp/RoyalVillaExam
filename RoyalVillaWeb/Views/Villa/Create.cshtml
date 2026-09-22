@@ -1,0 +1,186 @@
+@model RoyalVilla.Dto.VillaCreateDto
+
+@{
+    ViewData["Title"] = "Create Villa";
+}
+
+<!-- ===================== Page Header ===================== -->
+<div class="vm-header">
+    <div>
+        <h2 class="vm-title"><i class="bi bi-plus-square text-gold"></i> Create New Villa</h2>
+        <p class="text-muted mb-0">Fill in the details below to add a new villa listing</p>
+    </div>
+    <a asp-controller="villa" asp-action="index" class="btn btn-outline-gold">
+        <i class="bi bi-arrow-left"></i> Back to List
+    </a>
+</div>
+
+<!-- ===================== Form ===================== -->
+<form method="post" enctype="multipart/form-data" class="vm-form-card">
+
+    <!-- validation summary placeholder (binding step: asp-validation-summary="ModelOnly") -->
+    <div class="alert alert-danger d-none" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <span>Please correct the errors below.</span>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ========== Left: fields ========== -->
+        <div class="col-lg-7">
+
+            <!-- Name -->
+            <div class="vm-field">
+                <label asp-for="Name" for="Name" class="vm-label">
+                    Villa Name <span class="vm-required">*</span>
+                </label>
+                <div class="input-group vm-input-group">
+                    <span class="input-group-text"><i class="bi bi-house-door"></i></span>
+                    <input asp-for="Name" type="text" id="Name" name="Name" class="form-control"
+                           placeholder="e.g. Royal Sunset Villa" maxlength="30" required>
+                </div>
+                <div class="vm-hint d-flex justify-content-between">
+                    <span>Max 30 characters</span>
+                    <span id="nameCount">0 / 30</span>
+                </div>
+                <span asp-validation-for="Name" class="vm-error"></span>
+            </div>
+
+            <!-- Details -->
+            <div class="vm-field">
+                <label asp-for="Details" for="Details" class="vm-label">Description</label>
+                <textarea asp-for="Details" id="Details" name="Details" class="form-control" rows="4"
+                          placeholder="Describe the villa, its location, and what makes it special..."></textarea>
+                <div class="vm-hint">Optional — shown under the villa name in the listing</div>
+                <span asp-validation-for="Details" class="vm-error"></span>
+            </div>
+
+            <!-- Rate / Sqft / Occupancy -->
+            <div class="row g-3">
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Rate" for="Rate" class="vm-label">Rate / night <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="Rate" type="number" id="Rate" name="Rate" class="form-control"
+                                   min="0" step="0.01" placeholder="0.00" required>
+                        </div>
+                        <span asp-validation-for="Rate" class="vm-error"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Sqft" for="Sqft" class="vm-label">Size <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text"><i class="bi bi-arrows-fullscreen"></i></span>
+                            <input asp-for="Sqft" type="number" id="Sqft" name="Sqft" class="form-control"
+                                   min="0" step="1" placeholder="0" required>
+                            <span class="input-group-text">sqft</span>
+                        </div>
+                        <span asp-validation-for="Sqft" class="vm-error"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="vm-field mb-0">
+                        <label asp-for="Occupancy" for="Occupancy" class="vm-label">Occupancy <span class="vm-required">*</span></label>
+                        <div class="input-group vm-input-group">
+                            <span class="input-group-text"><i class="bi bi-people-fill"></i></span>
+                            <input asp-for="Occupancy" type="number" id="Occupancy" name="Occupancy" class="form-control"
+                                   min="1" step="1" placeholder="0" required>
+                        </div>
+                        <span asp-validation-for="Occupancy" class="vm-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vm-field mt-4 mb-0">
+                <label asp-for="Image" for="Image" class="vm-label">Villa Image</label>
+                <div class="input-group vm-input-group">
+                    <span class="input-group-text"><i class="bi bi-image"></i></span>
+                    <input asp-for="Image" type="file" id="Image" name="Image" class="form-control"
+                           accept="image/png, image/jpeg, image/webp" onchange="previewVillaImage(event)">
+                </div>
+                <div class="vm-hint">Supported formats: JPG, JPEG, PNG (Max 5MB)</div>
+                <span asp-validation-for="Image" class="vm-error"></span>
+            </div>
+
+        @*     <!-- ImageUrl -->
+            <div class="vm-field mt-4 mb-0">
+                <label asp-for="ImageUrl" for="ImageUrl" class="vm-label">Image URL</label>
+                <div class="input-group vm-input-group">
+                    <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                    <input asp-for="ImageUrl" type="url" id="ImageUrl" name="ImageUrl" class="form-control"
+                           placeholder="https://example.com/villa.jpg">
+                </div>
+                <div class="vm-hint">Optional — a placeholder is shown when left empty</div>
+                <span asp-validation-for="ImageUrl" class="vm-error"></span>
+            </div>
+        </div> *@
+
+        <!-- ========== Right: live preview ========== -->
+        <div class="col-lg-5">
+            <div class="vm-preview-panel">
+                <div class="vm-preview-title">
+                    <i class="bi bi-eye me-1"></i> Preview
+                </div>
+
+                <div class="vm-preview-image" id="previewBox">
+                    <img id="previewImg" src="" alt="Villa preview" class="d-none">
+                    <div id="previewEmpty" class="vm-preview-empty">
+                        <i class="bi bi-image"></i>
+                        <span>No image yet</span>
+                    </div>
+                </div>
+
+                <div class="vm-preview-body">
+                    <p class="vm-preview-name" id="previewName">Villa name</p>
+                    <p class="vm-preview-details" id="previewDetails">Description will appear here.</p>
+                    <div class="vm-preview-meta">
+                        <span><i class="bi bi-currency-dollar"></i> <b id="previewRate">0</b> / night</span>
+                        <span><i class="bi bi-arrows-fullscreen"></i> <b id="previewSqft">0</b> sqft</span>
+                        <span><i class="bi bi-people-fill"></i> <b id="previewOcc">0</b> guests</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Actions ========== -->
+    <div class="vm-form-actions">
+        <a asp-controller="villa" asp-action="index" class="btn btn-outline-secondary">
+            <i class="bi bi-x-lg"></i> Cancel
+        </a>
+        <button type="reset" class="btn btn-outline-gold">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </button>
+        <button type="submit" class="btn btn-gold">
+            <i class="bi bi-check-lg"></i> Create Villa
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewVillaImage(event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('previewImg');
+            const previewEmpty = document.getElementById('previewEmpty');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    previewImg.classList.remove('d-none');
+                    previewEmpty.classList.add('d-none');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.classList.add('d-none');
+                previewEmpty.classList.remove('d-none');
+            }
+        }
+    </script>
+}

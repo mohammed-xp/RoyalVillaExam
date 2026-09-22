@@ -1,0 +1,30 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+    "label": "build-api",
+    "type": "process",
+    "command": "dotnet watch run",
+    "args": [
+        "build",
+        "${workspaceFolder}/RoyalVilla_API/RoyalVilla_API.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+    ],
+    "problemMatcher": "$msCompile"
+},
+{
+    "label": "build-web",
+    "type": "process",
+    "command": "dotnet watch run",
+    "args": [
+        "build",
+        "${workspaceFolder}/RoyalVillaWeb/RoyalVillaWeb.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+    ],
+    "problemMatcher": "$msCompile"
+}
+
+	]
+}

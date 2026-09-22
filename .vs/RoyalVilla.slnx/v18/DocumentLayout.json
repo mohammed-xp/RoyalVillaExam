@@ -1,0 +1,134 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvilla_api\\royalvilla_api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|solutionrelative:royalvilla_api\\royalvilla_api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvilla_api\\controllers\\v2\\villacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|solutionrelative:royalvilla_api\\controllers\\v2\\villacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvillaweb\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|solutionrelative:royalvillaweb\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvilla_api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|solutionrelative:royalvilla_api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvillaweb\\sd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|solutionrelative:royalvillaweb\\sd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvillaweb\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8B49C107-52EE-4381-ABDD-C945899AD920}|RoyalVillaWeb\\RoyalVillaWeb.csproj|solutionrelative:royalvillaweb\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|c:\\users\\m7md2\\source\\repos\\royalvilla\\royalvilla_api\\migrations\\20260921123441_addimagesindataseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F8FE35F-097D-A427-CC28-7C8D760F54F6}|RoyalVilla_API\\RoyalVilla_API.csproj|solutionrelative:royalvilla_api\\migrations\\20260921123441_addimagesindataseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RoyalVilla_API.csproj",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\RoyalVilla_API.csproj",
+              "RelativeDocumentMoniker": "RoyalVilla_API\\RoyalVilla_API.csproj",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\RoyalVilla_API.csproj",
+              "RelativeToolTip": "RoyalVilla_API\\RoyalVilla_API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-21T12:44:54.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20260921123441_AddImagesInDataSeed.cs",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Migrations\\20260921123441_AddImagesInDataSeed.cs",
+              "RelativeDocumentMoniker": "RoyalVilla_API\\Migrations\\20260921123441_AddImagesInDataSeed.cs",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Migrations\\20260921123441_AddImagesInDataSeed.cs",
+              "RelativeToolTip": "RoyalVilla_API\\Migrations\\20260921123441_AddImagesInDataSeed.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:34:41.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SD.cs",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\SD.cs",
+              "RelativeDocumentMoniker": "RoyalVillaWeb\\SD.cs",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\SD.cs",
+              "RelativeToolTip": "RoyalVillaWeb\\SD.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAjwBMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:28:05.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "RoyalVilla_API\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "RoyalVilla_API\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAswEsAAADFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:28:35.91Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "RoyalVillaWeb\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "RoyalVillaWeb\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIoAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-21T12:27:29.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VillaController.cs",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Controllers\\v2\\VillaController.cs",
+              "RelativeDocumentMoniker": "RoyalVilla_API\\Controllers\\v2\\VillaController.cs",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVilla_API\\Controllers\\v2\\VillaController.cs",
+              "RelativeToolTip": "RoyalVilla_API\\Controllers\\v2\\VillaController.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAAAKYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:23:09.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.Production.json",
+              "DocumentMoniker": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\appsettings.Production.json",
+              "RelativeDocumentMoniker": "RoyalVillaWeb\\appsettings.Production.json",
+              "ToolTip": "C:\\Users\\m7md2\\source\\repos\\RoyalVilla\\RoyalVillaWeb\\appsettings.Production.json",
+              "RelativeToolTip": "RoyalVillaWeb\\appsettings.Production.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-21T12:17:48.253Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
